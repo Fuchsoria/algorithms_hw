@@ -5,10 +5,10 @@ import "testing"
 func BenchmarkKingMoves(b *testing.B) {
 	chess := Chess{}
 
-	for _, bm := range CasesKing {
-		b.Run(bm.name, func(b *testing.B) {
+	for _, bm := range casesKing {
+		b.Run(bm.Name, func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
-				_ = chess.GetKingBitboardMoves(bm.input)
+				_ = chess.GetKingBitboardMoves(bm.Input)
 			}
 		})
 	}
@@ -17,10 +17,10 @@ func BenchmarkKingMoves(b *testing.B) {
 func BenchmarkHorseMoves(b *testing.B) {
 	chess := Chess{}
 
-	for _, bm := range CasesKing {
-		b.Run(bm.name, func(b *testing.B) {
+	for _, bm := range casesKing {
+		b.Run(bm.Name, func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
-				_ = chess.GetHorseBitboardMoves(bm.input)
+				_ = chess.GetHorseBitboardMoves(bm.Input)
 			}
 		})
 	}
@@ -29,18 +29,18 @@ func BenchmarkHorseMoves(b *testing.B) {
 func BenchmarkCount(b *testing.B) {
 	chess := Chess{}
 
-	for _, bm := range CasesKing {
-		b.Run(bm.name, func(b *testing.B) {
+	for _, bm := range casesKing {
+		b.Run(bm.Name, func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
-				_ = chess.Popcnt(chess.GetKingBitboardMoves(bm.input))
+				_ = chess.Popcnt(chess.GetKingBitboardMoves(bm.Input))
 			}
 		})
 	}
 
-	for _, bm := range CasesHorse {
-		b.Run(bm.name, func(b *testing.B) {
+	for _, bm := range casesHorse {
+		b.Run(bm.Name, func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
-				_ = chess.Popcnt(chess.GetHorseBitboardMoves(bm.input))
+				_ = chess.Popcnt(chess.GetHorseBitboardMoves(bm.Input))
 			}
 		})
 	}
@@ -49,18 +49,18 @@ func BenchmarkCount(b *testing.B) {
 func BenchmarkOptCount(b *testing.B) {
 	chess := Chess{}
 
-	for _, bm := range CasesKing {
-		b.Run(bm.name, func(b *testing.B) {
+	for _, bm := range casesKing {
+		b.Run(bm.Name, func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
-				_ = chess.PopcntOpt(chess.GetKingBitboardMoves(bm.input))
+				_ = chess.PopcntOpt(chess.GetKingBitboardMoves(bm.Input))
 			}
 		})
 	}
 
-	for _, bm := range CasesHorse {
-		b.Run(bm.name, func(b *testing.B) {
+	for _, bm := range casesHorse {
+		b.Run(bm.Name, func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
-				_ = chess.PopcntOpt(chess.GetHorseBitboardMoves(bm.input))
+				_ = chess.PopcntOpt(chess.GetHorseBitboardMoves(bm.Input))
 			}
 		})
 	}

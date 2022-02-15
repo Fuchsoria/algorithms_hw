@@ -9,15 +9,15 @@ import (
 func TestKing(t *testing.T) {
 	chess := Chess{}
 
-	for _, tt := range CasesKing {
-		t.Run(tt.name, func(t *testing.T) {
-			mask := chess.GetKingBitboardMoves(tt.input)
+	for _, tt := range casesKing {
+		t.Run(tt.Name, func(t *testing.T) {
+			mask := chess.GetKingBitboardMoves(tt.Input)
 			count := chess.Popcnt(mask)
 			countOpt := chess.PopcntOpt(mask)
 
-			require.Equal(t, tt.output, int(mask))
-			require.Equal(t, tt.outputCount, count)
-			require.Equal(t, tt.outputCount, countOpt)
+			require.Equal(t, tt.Output, mask)
+			require.Equal(t, tt.Count, count)
+			require.Equal(t, tt.Count, countOpt)
 		})
 	}
 }
@@ -25,15 +25,15 @@ func TestKing(t *testing.T) {
 func TestHorse(t *testing.T) {
 	chess := Chess{}
 
-	for _, tt := range CasesHorse {
-		t.Run(tt.name, func(t *testing.T) {
-			mask := chess.GetHorseBitboardMoves(tt.input)
+	for _, tt := range casesHorse {
+		t.Run(tt.Name, func(t *testing.T) {
+			mask := chess.GetHorseBitboardMoves(tt.Input)
 			count := chess.Popcnt(mask)
 			countOpt := chess.PopcntOpt(mask)
 
-			require.Equal(t, tt.output, int(mask))
-			require.Equal(t, tt.outputCount, count)
-			require.Equal(t, tt.outputCount, countOpt)
+			require.Equal(t, tt.Output, mask)
+			require.Equal(t, tt.Count, count)
+			require.Equal(t, tt.Count, countOpt)
 		})
 	}
 }
