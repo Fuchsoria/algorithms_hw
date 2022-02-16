@@ -35,10 +35,9 @@ func TestCalculateGold(t *testing.T) {
 
 	for _, tt := range Cases {
 		t.Run(tt.name, func(t *testing.T) {
-			output := CalculateRecursive(tt.inputN)
+			output := CalculateGold(tt.inputN)
 
-			require.LessOrEqual(t, tt.output*0.99, output)
-			require.GreaterOrEqual(t, tt.output*1.01, output)
+			require.Equal(t, tt.output, output)
 		})
 	}
 }

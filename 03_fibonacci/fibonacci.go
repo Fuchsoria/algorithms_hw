@@ -36,5 +36,5 @@ func CalculateGold(n float64) float64 {
 	sqrt5 := math.Sqrt(5)
 	f := (sqrt5 + 1) / 2
 
-	return math.Floor(math.Pow(f, n) / sqrt5)
+	return math.Round(math.Pow(f, n) / sqrt5)
 }
