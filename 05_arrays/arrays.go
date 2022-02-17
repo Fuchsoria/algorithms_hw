@@ -26,12 +26,20 @@ func (s *singleArray[T]) Add(item T) {
 }
 
 func (s *singleArray[T]) AddByIndex(item T, index int) {
-	// need to implement
+	firstPart := s.arr[:index]
+	secondPart := s.arr[index+1:]
+
+	newArr := append(firstPart, item)
+	s.arr = append(newArr, secondPart...)
 }
 
-// func (s *singleArray[T]) Remove(index int) T {
-// 	// need to implement
-// }
+func (s *singleArray[T]) Remove(index int) T {
+	value := s.arr[index]
+
+	s.arr = append(s.arr[:index], s.arr[index+1:]...)
+
+	return value
+}
 
 func NewSingleArr[T any]() *singleArray[T] {
 	return &singleArray[T]{make([]T, 0)}
