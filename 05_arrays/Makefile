@@ -4,4 +4,7 @@ test:
 bench:
 	go1.18beta2 test -benchmem -bench .
 
-.PHONY: test bench
+tidy:
+	go1.18beta2 mod tidy
+
+.PHONY: test bench tidy

@@ -20,17 +20,25 @@ func (s *singleArray[T]) Get(index int) T {
 	return s.arr[index]
 }
 
+func (s *singleArray[T]) GetArray() []T {
+	return s.arr[:s.Size()]
+}
+
 func (s *singleArray[T]) Add(item T) {
 	s.Resize()
 	s.arr[s.Size()-1] = item
 }
 
 func (s *singleArray[T]) AddByIndex(item T, index int) {
-	firstPart := s.arr[:index]
-	secondPart := s.arr[index+1:]
+	copyArr := make([]T, len(s.arr))
+	copy(copyArr, s.arr)
 
-	newArr := append(firstPart, item)
-	s.arr = append(newArr, secondPart...)
+	newArr := make([]T, 0)
+	newArr = append(newArr, copyArr[:index]...)
+	newArr = append(newArr, item)
+	newArr = append(newArr, copyArr[index:]...)
+
+	s.arr = newArr
 }
 
 func (s *singleArray[T]) Remove(index int) T {
@@ -67,6 +75,10 @@ func (s *vectorArray[T]) Get(index int) T {
 	return s.arr[index]
 }
 
+func (s *vectorArray[T]) GetArray() []T {
+	return s.arr[:s.size]
+}
+
 func (s *vectorArray[T]) Add(item T) {
 	if s.size == s.Len() {
 		s.resize()
@@ -77,12 +89,27 @@ func (s *vectorArray[T]) Add(item T) {
 }
 
 func (s *vectorArray[T]) AddByIndex(item T, index int) {
-	// need to implement
+	copyArr := make([]T, len(s.arr))
+	copy(copyArr, s.arr)
+
+	newArr := make([]T, 0)
+	newArr = append(newArr, copyArr[:index]...)
+	newArr = append(newArr, item)
+	newArr = append(newArr, copyArr[index:]...)
+
+	s.arr = newArr
+	s.size = len(s.arr)
 }
 
-// func (s *vectorArray[T]) Remove(index int) T {
-// 	// need to implement
-// }
+func (s *vectorArray[T]) Remove(index int) T {
+	value := s.arr[index]
+
+	s.arr = append(s.arr[:index], s.arr[index+1:]...)
+
+	s.size--
+
+	return value
+}
 
 func NewVectorArr[T int](vector int) *vectorArray[T] {
 	return &vectorArray[T]{vector, 0, make([]T, 0)}
@@ -116,6 +143,10 @@ func (s *factorArray[T]) Get(index int) T {
 	return s.arr[index]
 }
 
+func (s *factorArray[T]) GetArray() []T {
+	return s.arr[:s.size]
+}
+
 func (s *factorArray[T]) Add(item T) {
 	if s.size == s.Len() {
 		s.resize()
@@ -126,12 +157,27 @@ func (s *factorArray[T]) Add(item T) {
 }
 
 func (s *factorArray[T]) AddByIndex(item T, index int) {
-	// need to implement
+	copyArr := make([]T, len(s.arr))
+	copy(copyArr, s.arr)
+
+	newArr := make([]T, 0)
+	newArr = append(newArr, copyArr[:index]...)
+	newArr = append(newArr, item)
+	newArr = append(newArr, copyArr[index:]...)
+
+	s.arr = newArr
+	s.size++
 }
 
-// func (s *factorArray[T]) Remove(index int) T {
-// 	// need to implement
-// }
+func (s *factorArray[T]) Remove(index int) T {
+	value := s.arr[index]
+
+	s.arr = append(s.arr[:index], s.arr[index+1:]...)
+
+	s.size--
+
+	return value
+}
 
 func NewFactorArr[T int]() *factorArray[T] {
 	return &factorArray[T]{2, 0, make([]T, 0)}
