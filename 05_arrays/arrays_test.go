@@ -10,9 +10,9 @@ func TestSingleArray(t *testing.T) {
 	t.Run("add", func(t *testing.T) {
 		inst := NewSingleArr[int]()
 
-		inst.Add(10)
-		inst.Add(11)
-		inst.Add(12)
+		inst.Put(10)
+		inst.Put(11)
+		inst.Put(12)
 
 		require.Equal(t, []int{10, 11, 12}, inst.GetArray())
 	})
@@ -20,10 +20,10 @@ func TestSingleArray(t *testing.T) {
 	t.Run("add by index", func(t *testing.T) {
 		inst := NewSingleArr[int]()
 
-		inst.Add(10)
-		inst.Add(11)
-		inst.Add(12)
-		inst.AddByIndex(14, 2)
+		inst.Put(10)
+		inst.Put(11)
+		inst.Put(12)
+		inst.PutByIndex(14, 2)
 
 		require.Equal(t, []int{10, 11, 14, 12}, inst.GetArray())
 	})
@@ -31,10 +31,10 @@ func TestSingleArray(t *testing.T) {
 	t.Run("remove", func(t *testing.T) {
 		inst := NewSingleArr[int]()
 
-		inst.Add(10)
-		inst.Add(11)
-		inst.Add(12)
-		inst.AddByIndex(14, 2)
+		inst.Put(10)
+		inst.Put(11)
+		inst.Put(12)
+		inst.PutByIndex(14, 2)
 
 		result := inst.Remove(2)
 
@@ -45,10 +45,10 @@ func TestSingleArray(t *testing.T) {
 	t.Run("get", func(t *testing.T) {
 		inst := NewSingleArr[int]()
 
-		inst.Add(10)
-		inst.Add(11)
-		inst.Add(12)
-		inst.AddByIndex(14, 2)
+		inst.Put(10)
+		inst.Put(11)
+		inst.Put(12)
+		inst.PutByIndex(14, 2)
 
 		result := inst.Get(2)
 
@@ -60,9 +60,9 @@ func TestVectorArray(t *testing.T) {
 	t.Run("add", func(t *testing.T) {
 		inst := NewVectorArr(10)
 
-		inst.Add(10)
-		inst.Add(11)
-		inst.Add(12)
+		inst.Put(10)
+		inst.Put(11)
+		inst.Put(12)
 
 		require.Equal(t, []int{10, 11, 12}, inst.GetArray())
 	})
@@ -70,10 +70,10 @@ func TestVectorArray(t *testing.T) {
 	t.Run("add by index", func(t *testing.T) {
 		inst := NewVectorArr(3)
 
-		inst.Add(10)
-		inst.Add(11)
-		inst.Add(12)
-		inst.AddByIndex(14, 2)
+		inst.Put(10)
+		inst.Put(11)
+		inst.Put(12)
+		inst.PutByIndex(14, 2)
 
 		require.Equal(t, []int{10, 11, 14, 12}, inst.GetArray())
 	})
@@ -81,10 +81,10 @@ func TestVectorArray(t *testing.T) {
 	t.Run("remove", func(t *testing.T) {
 		inst := NewVectorArr(3)
 
-		inst.Add(10)
-		inst.Add(11)
-		inst.Add(12)
-		inst.AddByIndex(14, 2)
+		inst.Put(10)
+		inst.Put(11)
+		inst.Put(12)
+		inst.PutByIndex(14, 2)
 
 		result := inst.Remove(2)
 
@@ -95,10 +95,10 @@ func TestVectorArray(t *testing.T) {
 	t.Run("get", func(t *testing.T) {
 		inst := NewVectorArr(3)
 
-		inst.Add(10)
-		inst.Add(11)
-		inst.Add(12)
-		inst.AddByIndex(14, 2)
+		inst.Put(10)
+		inst.Put(11)
+		inst.Put(12)
+		inst.PutByIndex(14, 2)
 
 		result := inst.Get(2)
 
@@ -110,9 +110,9 @@ func TestFactorArray(t *testing.T) {
 	t.Run("add", func(t *testing.T) {
 		inst := NewFactorArr()
 
-		inst.Add(10)
-		inst.Add(11)
-		inst.Add(12)
+		inst.Put(10)
+		inst.Put(11)
+		inst.Put(12)
 
 		require.Equal(t, []int{10, 11, 12}, inst.GetArray())
 	})
@@ -120,10 +120,10 @@ func TestFactorArray(t *testing.T) {
 	t.Run("add by index", func(t *testing.T) {
 		inst := NewFactorArr()
 
-		inst.Add(10)
-		inst.Add(11)
-		inst.Add(12)
-		inst.AddByIndex(14, 2)
+		inst.Put(10)
+		inst.Put(11)
+		inst.Put(12)
+		inst.PutByIndex(14, 2)
 
 		require.Equal(t, []int{10, 11, 14, 12}, inst.GetArray())
 	})
@@ -131,10 +131,10 @@ func TestFactorArray(t *testing.T) {
 	t.Run("remove", func(t *testing.T) {
 		inst := NewFactorArr()
 
-		inst.Add(10)
-		inst.Add(11)
-		inst.Add(12)
-		inst.AddByIndex(14, 2)
+		inst.Put(10)
+		inst.Put(11)
+		inst.Put(12)
+		inst.PutByIndex(14, 2)
 
 		result := inst.Remove(2)
 
@@ -145,10 +145,10 @@ func TestFactorArray(t *testing.T) {
 	t.Run("get", func(t *testing.T) {
 		inst := NewFactorArr()
 
-		inst.Add(10)
-		inst.Add(11)
-		inst.Add(12)
-		inst.AddByIndex(14, 2)
+		inst.Put(10)
+		inst.Put(11)
+		inst.Put(12)
+		inst.PutByIndex(14, 2)
 
 		result := inst.Get(2)
 

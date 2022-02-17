@@ -25,7 +25,11 @@ func (a *array[T]) GetArray() []T {
 	return a.arr[:a.size]
 }
 
-func (a *array[T]) AddByIndex(item T, index int) {
+func (a *array[T]) add(item T) {
+	a.arr[a.Size()-1] = item
+}
+
+func (a *array[T]) addByIndex(item T, index int) {
 	copyArr := make([]T, len(a.arr))
 	copy(copyArr, a.arr)
 
@@ -61,9 +65,13 @@ func (s *singleArray[T]) Resize() {
 	s.size++
 }
 
-func (s *singleArray[T]) Add(item T) {
+func (s *singleArray[T]) Put(item T) {
 	s.Resize()
-	s.arr[s.Size()-1] = item
+	s.add(item)
+}
+
+func (s *singleArray[T]) PutByIndex(item T, index int) {
+	s.addByIndex(item, index)
 }
 
 func NewSingleArr[T any]() *singleArray[T] {
@@ -72,12 +80,7 @@ func NewSingleArr[T any]() *singleArray[T] {
 
 type vectorArray[T any] struct {
 	vector int
-	size   int
-	arr    []T
-}
-
-func (s *vectorArray[T]) Len() int {
-	return len(s.arr)
+	array[T]
 }
 
 func (s *vectorArray[T]) resize() {
@@ -88,62 +91,26 @@ func (s *vectorArray[T]) resize() {
 	s.arr = newArr
 }
 
-func (s *vectorArray[T]) Get(index int) T {
-	return s.arr[index]
-}
-
-func (s *vectorArray[T]) GetArray() []T {
-	return s.arr[:s.size]
-}
-
-func (s *vectorArray[T]) Add(item T) {
-	if s.size == s.Len() {
+func (s *vectorArray[T]) Put(item T) {
+	if s.Size() == s.Len() {
 		s.resize()
 	}
 
-	s.arr[s.size] = item
 	s.size++
+	s.add(item)
 }
 
-func (s *vectorArray[T]) AddByIndex(item T, index int) {
-	copyArr := make([]T, len(s.arr))
-	copy(copyArr, s.arr)
-
-	newArr := make([]T, 0)
-	newArr = append(newArr, copyArr[:index]...)
-	newArr = append(newArr, item)
-	newArr = append(newArr, copyArr[index:]...)
-
-	s.arr = newArr
-	s.size = len(s.arr)
-}
-
-func (s *vectorArray[T]) Remove(index int) T {
-	value := s.arr[index]
-
-	s.arr = append(s.arr[:index], s.arr[index+1:]...)
-
-	s.size--
-
-	return value
+func (s *vectorArray[T]) PutByIndex(item T, index int) {
+	s.addByIndex(item, index)
 }
 
 func NewVectorArr[T int](vector int) *vectorArray[T] {
-	return &vectorArray[T]{vector, 0, make([]T, 0)}
+	return &vectorArray[T]{vector, array[T]{size: 0, arr: make([]T, 0)}}
 }
 
 type factorArray[T int] struct {
 	factor int
-	size   int
-	arr    []T
-}
-
-func (s *factorArray[T]) Len() int {
-	return len(s.arr)
-}
-
-func (s *factorArray[T]) isEmpty() bool {
-	return s.size == 0
+	array[T]
 }
 
 func (s *factorArray[T]) resize() {
@@ -160,48 +127,21 @@ func (s *factorArray[T]) resize() {
 	s.arr = newArr
 }
 
-func (s *factorArray[T]) Get(index int) T {
-	return s.arr[index]
-}
-
-func (s *factorArray[T]) GetArray() []T {
-	return s.arr[:s.size]
-}
-
-func (s *factorArray[T]) Add(item T) {
+func (s *factorArray[T]) Put(item T) {
 	if s.size == s.Len() {
 		s.resize()
 	}
 
-	s.arr[s.size] = item
 	s.size++
+	s.add(item)
 }
 
-func (s *factorArray[T]) AddByIndex(item T, index int) {
-	copyArr := make([]T, len(s.arr))
-	copy(copyArr, s.arr)
-
-	newArr := make([]T, 0)
-	newArr = append(newArr, copyArr[:index]...)
-	newArr = append(newArr, item)
-	newArr = append(newArr, copyArr[index:]...)
-
-	s.arr = newArr
-	s.size++
-}
-
-func (s *factorArray[T]) Remove(index int) T {
-	value := s.arr[index]
-
-	s.arr = append(s.arr[:index], s.arr[index+1:]...)
-
-	s.size--
-
-	return value
+func (s *factorArray[T]) PutByIndex(item T, index int) {
+	s.addByIndex(item, index)
 }
 
 func NewFactorArr[T int]() *factorArray[T] {
-	return &factorArray[T]{2, 0, make([]T, 0)}
+	return &factorArray[T]{2, array[T]{size: 0, arr: make([]T, 0)}}
 }
 
 type matrixArray[T int] struct {
@@ -216,10 +156,10 @@ func (s *matrixArray[T]) Get(index int) T {
 
 func (s *matrixArray[T]) Add(item T) {
 	if s.size == s.arr.Size()*s.vector {
-		s.arr.Add(NewVectorArr[T](s.vector))
+		s.arr.Put(NewVectorArr[T](s.vector))
 	}
 
-	s.arr.Get(s.size / s.vector).Add(item)
+	s.arr.Get(s.size / s.vector).Put(item)
 	s.size++
 }
 

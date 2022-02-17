@@ -11,7 +11,7 @@ func BenchmarkSingleArray(b *testing.B) {
 				arr := NewSingleArr[int]()
 
 				for j := 0; j < bm.Input; j++ {
-					arr.Add(j)
+					arr.Put(j)
 				}
 			}
 		})
@@ -27,7 +27,7 @@ func BenchmarkVectorArray(b *testing.B) {
 				arr := NewVectorArr(100)
 
 				for j := 0; j < bm.Input; j++ {
-					arr.Add(j)
+					arr.Put(j)
 				}
 			}
 		})
@@ -43,7 +43,7 @@ func BenchmarkFactorArray(b *testing.B) {
 				arr := NewFactorArr()
 
 				for j := 0; j < bm.Input; j++ {
-					arr.Add(j)
+					arr.Put(j)
 				}
 			}
 		})
