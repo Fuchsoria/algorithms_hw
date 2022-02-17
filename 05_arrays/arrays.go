@@ -1,11 +1,55 @@
 package arrays
 
-type singleArray[T any] struct {
-	arr []T
+type array[T any] struct {
+	size int
+	arr  []T
 }
 
-func (s *singleArray[T]) Size() int {
-	return len(s.arr)
+func (a *array[T]) isEmpty() bool {
+	return a.size == 0
+}
+
+func (a *array[T]) Size() int {
+	return a.size
+}
+
+func (a *array[T]) Len() int {
+	return len(a.arr)
+}
+
+func (a *array[T]) Get(index int) T {
+	return a.arr[index]
+}
+
+func (a *array[T]) GetArray() []T {
+	return a.arr[:a.size]
+}
+
+func (a *array[T]) AddByIndex(item T, index int) {
+	copyArr := make([]T, len(a.arr))
+	copy(copyArr, a.arr)
+
+	newArr := make([]T, 0)
+	newArr = append(newArr, copyArr[:index]...)
+	newArr = append(newArr, item)
+	newArr = append(newArr, copyArr[index:]...)
+
+	a.arr = newArr
+	a.size++
+}
+
+func (a *array[T]) Remove(index int) T {
+	value := a.arr[index]
+
+	a.arr = append(a.arr[:index], a.arr[index+1:]...)
+
+	a.size--
+
+	return value
+}
+
+type singleArray[T any] struct {
+	array[T]
 }
 
 func (s *singleArray[T]) Resize() {
@@ -14,14 +58,7 @@ func (s *singleArray[T]) Resize() {
 	copy(newArr, s.arr)
 
 	s.arr = newArr
-}
-
-func (s *singleArray[T]) Get(index int) T {
-	return s.arr[index]
-}
-
-func (s *singleArray[T]) GetArray() []T {
-	return s.arr[:s.Size()]
+	s.size++
 }
 
 func (s *singleArray[T]) Add(item T) {
@@ -29,28 +66,8 @@ func (s *singleArray[T]) Add(item T) {
 	s.arr[s.Size()-1] = item
 }
 
-func (s *singleArray[T]) AddByIndex(item T, index int) {
-	copyArr := make([]T, len(s.arr))
-	copy(copyArr, s.arr)
-
-	newArr := make([]T, 0)
-	newArr = append(newArr, copyArr[:index]...)
-	newArr = append(newArr, item)
-	newArr = append(newArr, copyArr[index:]...)
-
-	s.arr = newArr
-}
-
-func (s *singleArray[T]) Remove(index int) T {
-	value := s.arr[index]
-
-	s.arr = append(s.arr[:index], s.arr[index+1:]...)
-
-	return value
-}
-
 func NewSingleArr[T any]() *singleArray[T] {
-	return &singleArray[T]{make([]T, 0)}
+	return &singleArray[T]{array[T]{arr: make([]T, 0), size: 0}}
 }
 
 type vectorArray[T any] struct {
@@ -125,8 +142,12 @@ func (s *factorArray[T]) Len() int {
 	return len(s.arr)
 }
 
+func (s *factorArray[T]) isEmpty() bool {
+	return s.size == 0
+}
+
 func (s *factorArray[T]) resize() {
-	if s.size == 0 {
+	if s.isEmpty() {
 		s.arr = make([]T, 1)
 
 		return
