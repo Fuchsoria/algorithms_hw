@@ -10,6 +10,33 @@ func (s *Sort) swap(arr []int, a int, b int) {
 	arr[a], arr[b] = arr[b], arr[a]
 }
 
+func (s *Sort) moveMaxToRoot(arr []int, root int, size int) {
+	for j := root + 1; j < size; j++ {
+		if arr[root] < arr[j] {
+			s.swap(arr, root, j)
+		}
+	}
+}
+
+func (s *Sort) moveMaxToRootHeap(arr []int, root int, size int) {
+	L := 2*root + 1
+	R := 2*root + 2
+	X := root
+
+	if L < size && arr[L] > arr[X] {
+		X = L
+	}
+	if R < size && arr[R] > arr[X] {
+		X = R
+	}
+	if X == root {
+		return
+	}
+
+	s.swap(arr, X, root)
+	s.moveMaxToRootHeap(arr, X, size)
+}
+
 func (s *Sort) Bubble(input []int) (arr []int) {
 	arr = append(arr, input...)
 
@@ -69,12 +96,34 @@ func (s *Sort) Shell(input []int) (arr []int) {
 	return arr
 }
 
-// need to implement
 func (s *Sort) Selection(input []int) (arr []int) {
+	arr = append(arr, input...)
+
+	N := len(arr)
+
+	s.moveMaxToRoot(arr, 0, N)
+
+	for k := N - 1; k > 0; k-- {
+		s.swap(arr, 0, k)
+		s.moveMaxToRoot(arr, 0, k)
+	}
+
 	return arr
 }
 
-// need to implement
 func (s *Sort) Heap(input []int) (arr []int) {
+	arr = append(arr, input...)
+
+	N := len(arr)
+
+	for root := N/2 - 1; root >= 0; root-- {
+		s.moveMaxToRootHeap(arr, root, N)
+	}
+
+	for k := N - 1; k > 0; k-- {
+		s.swap(arr, 0, k)
+		s.moveMaxToRootHeap(arr, 0, k)
+	}
+
 	return arr
 }
