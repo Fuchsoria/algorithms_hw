@@ -67,3 +67,47 @@ func BenchmarkShell(b *testing.B) {
 		}
 	})
 }
+
+func BenchmarkSelection(b *testing.B) {
+	sort := Sort{}
+
+	b.Run("100", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sort.Selection(case100)
+		}
+	})
+
+	b.Run("1000", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sort.Selection(case1000)
+		}
+	})
+
+	b.Run("10000", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sort.Selection(case10000)
+		}
+	})
+}
+
+func BenchmarkHeap(b *testing.B) {
+	sort := Sort{}
+
+	b.Run("100", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sort.Heap(case100)
+		}
+	})
+
+	b.Run("1000", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sort.Heap(case1000)
+		}
+	})
+
+	b.Run("10000", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sort.Heap(case10000)
+		}
+	})
+}

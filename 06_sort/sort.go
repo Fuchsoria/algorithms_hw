@@ -68,3 +68,13 @@ func (s *Sort) Shell(input []int) (arr []int) {
 
 	return arr
 }
+
+// need to implement
+func (s *Sort) Selection(input []int) (arr []int) {
+	return arr
+}
+
+// need to implement
+func (s *Sort) Heap(input []int) (arr []int) {
+	return arr
+}
