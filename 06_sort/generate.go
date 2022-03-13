@@ -3,6 +3,7 @@ package sort
 import (
 	"bufio"
 	"fmt"
+	"io/fs"
 	"log"
 	"os"
 	"strconv"
@@ -11,7 +12,7 @@ import (
 // func generateFile(n int) (fileName string) {
 // 	fileName = fmt.Sprintf("mocks/%dn-data.txt", n)
 
-// 	file, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+// 	file, err := os.Create(fileName)
 
 // 	if err != nil {
 // 		log.Fatalf("failed creating file: %s", err)
@@ -62,7 +63,8 @@ func saveFile(arr []int, key string) (fileName string) {
 
 	os.Remove(fileName)
 
-	file, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	os.Mkdir("results", fs.ModeAppend)
+	file, err := os.Create(fileName)
 
 	if err != nil {
 		log.Fatalf("failed creating file: %s", err)
