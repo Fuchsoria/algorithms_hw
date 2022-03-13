@@ -127,3 +127,70 @@ func (s *Sort) Heap(input []int) (arr []int) {
 
 	return arr
 }
+
+func (s *Sort) BucketSort(input []int, chunk int) (result []int) {
+	array := append([]int{}, input...)
+	result = make([]int, 0)
+
+	var max, min int
+	for _, n := range array {
+		if n < min {
+			min = n
+		}
+		if n > max {
+			max = n
+		}
+	}
+
+	nBuckets := int(max-min)/chunk + 1
+	buckets := make([][]int, nBuckets)
+	for i := 0; i < nBuckets; i++ {
+		buckets[i] = make([]int, 0)
+	}
+
+	for _, n := range array {
+		idx := int(n-min) / chunk
+		buckets[idx] = append(buckets[idx], n)
+	}
+
+	for _, bucket := range buckets {
+		if len(bucket) > 0 {
+			bucket = s.Insertion(bucket)
+			result = append(result, bucket...)
+		}
+	}
+
+	return result
+}
+
+func (s *Sort) CountingSort(input []int, max int) (arr []int) {
+	arr = append(arr, input...)
+
+	n := len(input)
+
+	output := make([]int, n)
+	count := make([]int, max)
+
+	for i := 0; i < max; i++ {
+		count[i] = 0
+	}
+
+	for i := 0; i < n; i++ {
+		count[arr[i]]++
+	}
+
+	for i := 1; i < max; i++ {
+		count[i] += count[i-1]
+	}
+
+	for i := n - 1; i >= 0; i-- {
+		output[count[arr[i]]-1] = arr[i]
+		count[arr[i]]--
+	}
+
+	for i := 0; i < n; i++ {
+		arr[i] = output[i]
+	}
+
+	return arr
+}

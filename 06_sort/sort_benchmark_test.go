@@ -1,6 +1,9 @@
 package sort
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func BenchmarkBubble(b *testing.B) {
 	sort := Sort{}
@@ -108,6 +111,62 @@ func BenchmarkHeap(b *testing.B) {
 	b.Run("10000", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			sort.Heap(case10000)
+		}
+	})
+}
+
+func BenchmarkBucket(b *testing.B) {
+	sort := Sort{}
+
+	b.Run("100", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sort.BucketSort(case100, 10)
+		}
+	})
+
+	b.Run("1000", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sort.BucketSort(case1000, 10)
+		}
+	})
+
+	b.Run("10000", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sort.BucketSort(case10000, 10)
+		}
+	})
+
+	b.Run("1kk", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			saveFile(sort.BucketSort(dataArr1kk, 100), fmt.Sprintf("bucket-1kk-%d", i))
+		}
+	})
+}
+
+func BenchmarkCounting(b *testing.B) {
+	sort := Sort{}
+
+	b.Run("100", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sort.CountingSort(case100, 65535)
+		}
+	})
+
+	b.Run("1000", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sort.CountingSort(case1000, 65535)
+		}
+	})
+
+	b.Run("10000", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sort.CountingSort(case10000, 65535)
+		}
+	})
+
+	b.Run("1kk", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			saveFile(sort.CountingSort(dataArr1kk, 65535), fmt.Sprintf("counting-1kk-%d", i))
 		}
 	})
 }

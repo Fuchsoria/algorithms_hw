@@ -60,3 +60,25 @@ func TestHeap(t *testing.T) {
 		require.Equal(t, []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, result)
 	})
 }
+
+func TestBucket(t *testing.T) {
+	sort := Sort{}
+
+	t.Run("sort", func(t *testing.T) {
+		input := []int{8, 9, 6, 7, 3, 4, 2, 1, 5, 0}
+		result := sort.BucketSort(input, 10)
+
+		require.Equal(t, []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, result)
+	})
+}
+
+func TestCounting(t *testing.T) {
+	sort := Sort{}
+
+	t.Run("sort", func(t *testing.T) {
+		input := []int{8, 9, 6, 7, 3, 4, 2, 1, 5, 0}
+		result := sort.CountingSort(input, 65535)
+
+		require.Equal(t, []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, result)
+	})
+}
