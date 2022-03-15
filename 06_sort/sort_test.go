@@ -83,6 +83,17 @@ func TestQuick(t *testing.T) {
 	})
 }
 
+func TestQuick2(t *testing.T) {
+	sort := QuickSort{}
+
+	t.Run("sort", func(t *testing.T) {
+		input := []int{8, 9, 6, 7, 3, 4, 2, 1, 5, 0}
+		result := sort.Quick(input)
+
+		require.Equal(t, []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, result)
+	})
+}
+
 func TestBucket(t *testing.T) {
 	sort := Sort{}
 

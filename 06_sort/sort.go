@@ -271,3 +271,39 @@ func (s *Sort) CountingSort(input []int, max int) (arr []int) {
 
 	return arr
 }
+
+type QuickSort struct{}
+
+func (s *QuickSort) swap(arr []int, x int, y int) {
+	arr[x], arr[y] = arr[y], arr[x]
+}
+
+func (s *QuickSort) split(arr []int, L int, R int) int {
+	P := arr[R]
+	a := L - 1
+	for m := L; m <= R; m++ {
+		if arr[m] <= P {
+			a++
+			s.swap(arr, a, m)
+		}
+	}
+	return a
+}
+
+func (s *QuickSort) sort(arr []int, L int, R int) {
+	if L >= R {
+		return
+	}
+
+	X := s.split(arr, L, R)
+	s.sort(arr, L, X-1)
+	s.sort(arr, X+1, R)
+}
+
+func (s *QuickSort) Quick(input []int) (arr []int) {
+	arr = append(arr, input...)
+
+	s.sort(arr, 0, len(arr)-1)
+
+	return arr
+}

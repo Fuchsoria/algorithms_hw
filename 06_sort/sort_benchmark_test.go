@@ -171,6 +171,28 @@ func BenchmarkQuick(b *testing.B) {
 	})
 }
 
+func BenchmarkQuick2(b *testing.B) {
+	sort := QuickSort{}
+
+	b.Run("100", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sort.Quick(case100)
+		}
+	})
+
+	b.Run("1000", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sort.Quick(case1000)
+		}
+	})
+
+	b.Run("10000", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sort.Quick(case10000)
+		}
+	})
+}
+
 func BenchmarkBucket(b *testing.B) {
 	sort := Sort{}
 
